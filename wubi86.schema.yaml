@@ -10,20 +10,18 @@ schema:
   description: |
     五筆字型86版
     碼表源自 ibus-table
-    敲 z 鍵進入拼音反查
+    敲 z 鍵進入双拼反查
   dependencies:
-    - pinyin_simp
+    - double_pinyin_flypy
+    - melt_eng              # 英文输入，作为次翻译器挂载到拼音方案
 
 switches:
   - name: ascii_mode
-    reset: 0
+    reset: 1                # 默认英文
     states: [ 中文, 西文 ]
-  - name: full_shape
-    states: [ 半角, 全角 ]
-  - name: extended_charset
-    states: [ 常用, 增廣 ]
-  - name: ascii_punct
-    states: [ 。，, ．， ]
+  - name: simplification
+    reset: 1
+    states: [ 漢字, 汉字 ]
 
 engine:
   processors:
@@ -45,6 +43,10 @@ engine:
     - punct_translator
     - reverse_lookup_translator
     - table_translator
+    - table_translator@melt_eng   # 英文输入
+  filters:
+    - simplifier
+    - uniquifier                  # 去重
 
 speller:
   delimiter: " ;'"
@@ -52,6 +54,7 @@ speller:
 
 translator:
   dictionary: wubi86
+  initial_quality: 1.2            # 权重应该比英文大
   enable_charset_filter: true
   enable_sentence: true
   enable_encoder: true
@@ -61,14 +64,21 @@ translator:
     - "^z.*$"
 
 reverse_lookup:
-  dictionary: pinyin_simp
+  dictionary: rime_ice
+  prism: double_pinyin_flypy
   prefix: "z"
   suffix: "'"
-  tips: 〔拼音〕
-  preedit_format:
-    - xform/([nl])v/$1ü/
-    - xform/([nl])ue/$1üe/
-    - xform/([jqxy])v/$1u/
+  tips: 〔双拼〕
+  preedit_format: []
+
+# 次翻译器，英文
+melt_eng:
+  dictionary: melt_eng            # 挂载词库 melt_eng.dict.yaml
+  enable_sentence: false          # 禁止造句
+  enable_user_dict: false         # 禁用用户词典
+  initial_quality: 0.9            # 初始权重
+  comment_format:                 # 自定义提示码
+    - xform/.*//                  # 清空提示码
 
 punctuator:
   import_preset: symbols

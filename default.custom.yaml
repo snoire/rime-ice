@@ -1,0 +1,37 @@
+# Rime user settings
+# encoding: utf-8
+patch:
+  schema_list:
+    - schema: wubi86                # 86 五笔
+    - schema: double_pinyin_flypy   # 小鹤双拼
+
+  menu:
+    page_size: 5
+
+  # 方案选单相关
+  switcher:
+    hotkeys:
+      # - Control+space     # 系统切换输入法
+      - Control+Alt+space   # 在开启 macos-option-as-alt 应用内无法触发
+      - Control+Shift+grave
+
+  key_binder:
+    bindings:
+      # 翻页
+      - { when: paging, accept: minus, send: Page_Up }
+      - { when: has_menu, accept: equal, send: Page_Down }
+      - { when: paging, accept: bracketleft, send: Page_Up }
+      - { when: has_menu, accept: bracketright, send: Page_Down }
+      - { when: paging, accept: 9, send: Page_Up }
+      - { when: has_menu, accept: 0, send: Page_Down }
+
+      # 上屏第二、三候选
+      - { when: has_menu, accept: semicolon, send: 2 }
+      - { when: has_menu, accept: apostrophe, send: 3 }
+
+  # 设置caps、shift、control等键的作用
+  # https://gist.github.com/lotem/2981316
+  ascii_composer:
+    switch_key:
+      Shift_L: noop
+      Shift_R: commit_code  # 右 shift 切换中英文

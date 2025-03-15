@@ -41,7 +41,7 @@ style:
   # 以下是预设选项。如果皮肤没写，则使用这些属性；如果皮肤写了，使用皮肤的。
 
   # 候选框与文字的排列方式
-  candidate_list_layout: stacked  # stacked | linear       皮肤横竖排显示是调整这个
+  candidate_list_layout: linear   # stacked | linear       皮肤横竖排显示是调整这个
   text_orientation: horizontal    # horizontal | vertical  文字方向
   # 拼音或词句是否显示在键入位置
   inline_preedit: true     # true | false  键入码显示位置
@@ -92,11 +92,11 @@ preset_color_schemes:
     # 如果将字体设置为 PingFangSC-Regular
     # 会让 🈶🈚️🉑🈲🉐 这几个 Emoji 失去彩色效果，留空反而可以显示。。。
     font_face: ""                   # 字体及大小
-    font_point: 18
+    font_point: 14
     label_font_face: "Helvetica"    # 序号字体及大小
     label_font_point: 12
     comment_font_face: "Helvetica"  # 注字体及大小
-    comment_font_point: 16
+    comment_font_point: 13
     # candidate_list_layout: stacked        # 候选项排列方向 stacked(默认) | linear
     # text_orientation: horizontal          # 文字排列方向 horizontal(默认) | vertical
     inline_preedit: true                    # 键入码（拼音）是否显示在键入位置 true | false
